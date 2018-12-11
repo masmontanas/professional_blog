@@ -3,15 +3,9 @@ python:
   - 3.6
 
 install: pip install -r requirements.txt
+script: python -m unittest discover -v
 
-jobs:
-  include:
-    - stage: "tests"
-      name: "Unit Tests"
-      scripts: python -m unittest discover -v
-    - stage: "deploy"
-      name: "Deploy Azure Web App"
-      deploy:
-        provider: azure_web_apps
-        on: master
-        verbose: true
+deploy:
+  provider: azure_web_apps
+  on: master
+  verbose: true
