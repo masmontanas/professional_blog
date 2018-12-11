@@ -5,5 +5,6 @@ python:
 install: pip install -r requirements.txt
 script: python -m unittest discover -v
 
-deploy: azure_web_apps
-verbose: true
+deploy:
+  provider: azure_web_apps
+  verbose: true
