@@ -31,15 +31,12 @@ class TestCase(unittest.TestCase):
         assert query == []
 
     def test_index_response(self):
-        ## Need to add a blog post since one is required to render the page.
         u = User(username='tester', email='tester@test.com')
         db.session.add(u)
         db.session.commit()
-        print("Added user '{}' to session.".format(u.username))
         post = Post(body='testing', user_id=u.id, title='test title', description='test description')
         db.session.add(post)
         db.session.commit()
-        print("Added post '{}' to session.".format(post.title))
         print("Testing 200-ok response on /index")
         response = self.app.get('/index', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
