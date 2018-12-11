@@ -29,6 +29,13 @@ class TestCase(unittest.TestCase):
         assert query == []
 
     def test_index_response(self):
+        ## Need to add a blog post since one is required to render the page.
+        u = User(username='tester', email='tester@test.com')
+        db.session.add(u)
+        db.session.commit()
+        post = Post(body='testing', user_id=u.id, title='test title', description='test description')
+        db.session.add(post)
+        db.session.commit()
         response = self.app.get('/index', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
