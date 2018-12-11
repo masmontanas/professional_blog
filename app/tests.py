@@ -19,12 +19,14 @@ class TestCase(unittest.TestCase):
 
 
     def test_new_user(self):
+        print('Testing addition of new user to db.')
         u = User(username='john', email='john@example.com')
         db.session.add(u)
         db.session.commit()
         assert u
 
     def test_query_user(self):
+        print('Testing user query.')
         query = User.query.all()
         assert query == []
 
