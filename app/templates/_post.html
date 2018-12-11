@@ -1,0 +1,14 @@
+<div clas="container-fixed">
+<div class="container-fluid container-posts">
+    <table class="table table-hover table-post table-styling">
+        <tr>
+            <td>
+                <h2> {{ post.title }}</h2>
+                <h5>{{ post.author.username }} posted {{ moment(post.timestamp).fromNow() }}:</h5>
+            <br>
+                <p>{{ post.description | safe }}<a href="/posts/{{post.id}}"><button type="button" class="btn btn-link">Read More</button></a></p>
+            </td>
+        </tr>
+    </table>
+</div>
+</div>

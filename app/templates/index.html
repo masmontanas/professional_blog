@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block app_content %}
+
+<div class="container-fixed container-fullpage">
+<div class="jumbotron jumbotron-fluid">
+    <div class="container jumbotron-text">
+        <h1 class="jumbotron-header">Jouharyan Consulting</h1>
+        <p class="jumbotron-subheader">Delivering a suite of services and solutions to meet challenges at any layer of the stack.</p>
+    </div>
+    <div class="container container-fluid">
+        {{ wtf.quick_form(emailsubscribeform, action="", method="post",form_type='inline', button_map={'subscribe': 'primary'}) }}
+    </div>
+
+</div>
+
+
+<div class="container-fluid container-default-padding" id="about">
+        <div class="row">
+            <div class="col-sm-6 col-md-6 col-lg-6">
+            <hr>
+            <h2>About us</h2>
+            <br>
+            <h4>Launched in November, 2018!</h4>
+            <p class="lead">We offer solutions across a broad spectrum of technologies and services.  Have an opportunity, question or comment? Give us a shout!</p>
+            <a href="#contactus" class="btn btn-default btn-lg">Get in Touch</a>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-6">
+            <hr>
+            <h2>Latest from our blog</h2>
+            <br>
+            <blockquote>
+            <h3>{{ latest_post.title }}</h3>
+            <p class="lead">Posted by {{ latest_post.author.username }} {{ moment(latest_post.timestamp).fromNow() }}</p>
+            </blockquote>
+            <a href="{{ url_for('blog') }}" class="btn btn-default btn-lg">Blog</a>
+            </div>
+        </div>
+        </div>
+         
+<div class="container-fluid text-center bg-grey" id="services">
+    <h2>Expertise</h2>
+    <h4>Have a need not outlined below? Get in touch to see if we can still help!</h4>
+    <br>
+    <div class="row">
+    <div class="col-sm-3">
+        <span class="glyphicon glyphicon-flash logo logo-small"></span>
+        <h3>DevOps</h3>
+        <p class="lead">Whether it's deploying microservices to a Kubernetes cluster, or wrangling that old monolith into the 21st century.</p>
+    </div>
+    <div class="col-sm-3">
+        <span class="glyphicon glyphicon-lock logo logo-small"></span>
+        <h3>Security</h3>
+        <p class="lead">Bringing years of experience in application, infrastructure and information security to solve the challenges of an ever-evolving threat landscape.</p>
+    </div>
+    <div class="col-sm-3">
+        <span class="glyphicon glyphicon-ok-circle logo logo-small"></span>
+        <h3>Compliance</h3>
+        <p class="lead">PCI and HIPPA consulting, architecture, and audit preparation services.</p>
+    </div>
+    <div class="col-sm-3">
+        <span class="glyphicon glyphicon-wrench logo logo-small"></span>
+        <h3>Full-Stack Development</h3>
+        <p class="lead">Whether it's a consumer product or an application to help your business become more efficient - if you need a responsive, fast and secure web application, we can build it!</p>
+    </div>
+</div>         
+</div>
+
+<div class="container-fluid container-testimonials-padding" id="testimonials">
+    <h2 class="text-center">What our customers say</h2>
+    <div id="myCarousel" class="carousel slide text-center" data-ride="carousel">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+    
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner" role="listbox">
+        
+        <div class="item active">
+        <h4>"Combing soon..."<br><span style="font-style:normal;">John Doe, Vice President, Comment Box</span></h4>
+        </div>
+        <div class="item">
+        <h4>"Coming soon..."<br><span style="font-style:normal;">John Doe, Salesman, Rep Inc</span></h4>
+        </div>
+        <div class="item">
+        <h4>"Coming soon..."<br><span style="font-style:normal;">John Doe, Director, Placeholder Inc</span></h4>
+        </div>
+    </div>
+    
+    <!-- Left and right controls -->
+    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+    </div>
+    </div>
+
+    <div class="container-fluid bg-grey" id="contactus">
+    <h2 class="text-center">Contact</h2>
+    <div class="row">
+        <div class="col-sm-5">
+        <p>Contact us and we'll get back to you within 24 hours.</p>
+        <p><span class="glyphicon glyphicon-map-marker"></span> Seattle, US</p>
+        <p><a href="tel:1-818-217-0336"><span class="glyphicon glyphicon-phone"></span> +18182170336</a></p>
+        <p><a href="mailto:info@jouharyan.com"><span class="glyphicon glyphicon-envelope"></span> info@jouharyan.com</a></p>
+        </div>
+        <div class="col-sm-7">
+        <div class="row">
+            <div class="col-sm-6 form-group">
+                {{ wtf.quick_form(contactform, method="post",form_type='basic', button_map={'submit': 'primary'})}}
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+{% endblock %}

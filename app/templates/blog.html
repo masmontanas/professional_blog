@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+{% block app_content %}
+<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+<div class="container-fixed container-fullpage">
+<div class="container-fluid container-wrapper">
+<div class="row default-row-padding">
+    <div class="col-sm-8 col-md-8 col-lg-8">
+        <div class="container-fluid container-posts">
+            {% for post in posts %}
+            {% include '_post.html' %}
+            {% endfor %}
+        </div>
+
+        <div class="container-fluid container-pager">
+            <nav aria-label="...">
+                <ul class="pager">
+                    <li class="previous{% if not prev_url %} disabled{% endif %}">
+                        <a href="{{ page_first or '#' }}">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="previous{% if not prev_url %} disabled{% endif %}">
+                        <a href="{{ prev_url or '#' }}">
+                            <span aria-hidden="true">&lsaquo;</span>
+                        </a>
+                    </li>
+                    <li class="next{% if not next_url %} disabled{% endif %}">
+                        <a href="{{ page_last or '#' }}">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                    <li class="next{% if not next_url %} disabled{% endif %}">
+                        <a href="{{ next_url or '#' }}">
+                            <span aria-hidden="true">&rsaquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            </div>
+    </div>
+          <!-- Sidebar Widgets Column -->
+          <div class="col-md-4">
+                <!-- Categories Widget -->
+                <div class="card my-4">
+                  <h4 class="card-header">Categories</h4>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-lg-6">
+                          {% for t in tags %}
+                          <ul class="list-unstyled mb-4">
+                              <a href="/categories/{{t.name}}" class="btn btn-info btn-xs">
+                                  <span class="glyphicon glyphicon-tag"></span> {{t.name}} ({{t.count}})
+                              </a>
+                              </ul>
+                          {% endfor %} 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+      
+                <!-- Side Widget -->
+                <div class="card my-4">
+                  <h4 class="card-header">About Alek</h4>
+                  <div class="card-body">
+                        <p>Seattle, WA based IT consultant and engineer, specializing in full-stack development, devops and security.</p>
+                        <p>Aside from tinkering around with systems and code, I'm an avid climber with a penchant for the alpine.</p> 
+                  </div>
+                </div>
+                <div class="LI-profile-badge LT-profile-badge-styling"  data-version="v1" data-size="medium" data-locale="en_US" data-type="vertical" data-theme="dark" data-vanity="alekjouharyan"><a class="LI-simple-link" href='https://www.linkedin.com/in/alekjouharyan?trk=profile-badge'></a></div> 
+            </div>    
+  </div>
+</div>
+</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,113 @@
+
+{% extends "base.html" %}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+
+
+{% block app_content %}
+
+<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+
+<div class="container-fixed container-fullpage">
+    <!-- Page Content -->
+    <div class="container-fluid container-wrapper">
+
+        <div class="row default-row-padding">  
+          <!-- Post Content Column -->
+          <div class="col-sm-12 col-posts">
+  
+            <!-- Title -->
+            <h1 class="mt-4">{{ data.title }}</h1>
+  
+
+            <div class="container-fluid">
+                  
+                <ul class="list-inline post-tags">
+                    <span class="glyphicon glyphicon-tags text-muted"></span> Tags:
+                {% for t in tags %}
+                    <a href="/categories/{{t}}" class="btn btn-info btn-xs">
+                        <span class="glyphicon glyphicon-tag"></span> {{t}}
+                    </a>
+                {% endfor %}  
+                </ul>
+            </div>    
+
+            <hr>
+            <p class="lead">
+                {{ data.author.username }} posted {{ moment(data.timestamp).fromNow() }}:
+              </p>
+            {{ data.body | safe }}
+
+            <hr>    
+  
+            <!-- Comments Form -->
+            <div class="card my-4">
+              <h4 class="card-header">Leave a Comment:</h4>
+              <div class="card-body">
+                    {{ wtf.quick_form(commentform, method="post",form_type='basic', button_map={'submit': 'primary'})}}
+              </div>
+            </div>
+            {% if comment_count < 1 %}
+            <div class="container-fluid container-default-padding">
+                <h4><span class="fa fa-comments-o"></span><a class=comments-section-header>  Be the first to comment!</a></h4>
+                <hr>                    
+            </div>
+            {% else %}           
+            <!--Comments-->
+            <div class="container-fluid container-default-padding">
+                <h4><span class="fa fa-comments-o"></span><a data-toggle="collapse" href="#comments" class=comments-section-header>  Expand Comments ({{comment_count}})</a></h4>
+                <hr>
+                <div class="media mb-4 collapse" id="comments">
+                    {% for c in comments %}
+                    <div class="media-body">
+                      <h5 class="mt-0">{{c.name}} said {{ moment(c.timestamp).fromNow() }}:</h5>
+                      {{c.comment}}
+                    </div>
+                    <hr> 
+                    {% endfor %}
+                  </div>                      
+            </div>
+            {% endif %}
+          </div>
+          <!-- Sidebar Widgets Column -->
+          <div class="row default-row-padding">  
+          <div class="col-md-4">
+            <!-- Categories Widget -->
+            <div class="card my-4">
+              <h4 class="card-header">Categories</h4>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-lg-6">
+                      {% for t in all_tags %}
+                      <ul class="list-unstyled mb-4">
+                          <a href="/categories/{{t.name}}" class="btn btn-info btn-xs">
+                              <span class="glyphicon glyphicon-tag"></span>  {{t.name}} ({{t.count}})
+                          </a>
+                          </ul>
+                      {% endfor %} 
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Side Widget -->
+            <div class="card my-4">
+              <h4 class="card-header">About Alek</h4>
+              <div class="card-body">
+                  <p>Seattle, WA based IT consultant and engineer, specializing in full-stack development, devops and security.</p>
+                  <p>Aside from tinkering around with systems and code, I'm an avid climber with a penchant for the alpine.</p> 
+            </div>
+            </div>
+            <div class="LI-profile-badge LT-profile-badge-styling" data-version="v1" data-size="medium" data-locale="en_US" data-type="vertical" data-theme="dark" data-vanity="alekjouharyan"><a class="LI-simple-link" href='https://www.linkedin.com/in/alekjouharyan?trk=profile-badge'></a></div> 
+          </div>
+        </div>
+        </div>
+        <!-- /.row -->
+  
+      </div>
+      <!-- /.container -->
+
+    </div>
+{% endblock %}
+
+
+

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Summernote</title>
+  <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+  <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+  <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+</head>
+<body>
+    <form method="post">
+        <h3>Short Description</h3>
+        <textarea id="summernote" name="descriptiondata"></textarea>
+        <br>
+        <h3>Post</h3>
+        <textarea id="summernote1" name="editordata"></textarea>
+        <br>
+        <h3>Tags</h3>
+        <textarea id="tags" name="tagdata"></textarea>
+        <br>
+        <h3>Title</h3>
+        <textarea id="title" name="titledata"></textarea>
+        <br>
+        <input type="submit" value="Add Post">
+    </form>  
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+        $(document).ready(function() {
+            $('#summernote1').summernote();
+        });
+  </script>
+</body>
+</html>

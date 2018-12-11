@@ -1,0 +1,486 @@
+{% extends 'bootstrap/base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block title %}
+    {% if title %}{{ title }}{% else %}Jouharyan Consulting{% endif %}
+{% endblock %}
+
+{% block navbar %}
+<style>
+
+    html, body {
+        height: 100%;
+    }
+
+    .navbar {
+        margin-bottom: 0;
+        background-color: #f4511e;
+        opacity: 0.9;
+        z-index: 9999;
+        border: 0;
+        font-size: 12px !important;
+        line-height: 1.42857143 !important;
+        letter-spacing: 4px;
+        border-radius: 0;
+    }
+
+    .navbar li a, .navbar .navbar-brand {
+        color: #fff !important;
+    }
+
+    .navbar-nav li a:hover, .navbar-nav li.active a {
+        color: #f4511e !important;
+        background-color: #fff !important;
+    }
+
+    .navbar-default .navbar-toggle {
+        border-color: transparent;
+        color: #fff !important;
+    }
+
+    footer {
+        background-color: #f6f6f6;;
+        width: 100%;
+        text-align: center;
+        margin: 0;
+        position: relative;
+
+    }
+    .wrapper {
+        min-height: 100%;
+        margin: 0;
+    }
+
+    footer a {
+        color: #70726F;
+        font-size: 25px;
+        padding: 10px 10px;
+        border-right: 1px solid #70726F;
+        transition: all .5s ease;
+    }
+    footer a:first-child {
+        border-left: 1px solid #70726F;
+    }
+    footer a:hover {
+        color: #f4511e;
+    }
+
+    .container-footer-container {
+        width: 100%;
+    }
+
+    .container-commentform {
+        display: flex;
+        align-items: left;
+        justify-content: left;
+    }
+
+    input {
+        max-width: 100%
+    }
+
+    .container-comments {
+        padding: 20px 10px;
+    }
+
+
+    .container-comments:nth-child(odd) {
+        background-color: #f6f6f6;
+    }
+
+    .table-comments:nth-child(odd) {
+        background-color: inherit;
+    }
+    .table-comments {
+        padding: 0px 60px;
+        table-layout: fixed;
+        word-wrap: break-word;
+    }
+
+
+    .container-tags {
+        padding: 20px 60px;
+        display: inline;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none; /* no underline */
+    }
+
+    a:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .list-tags {
+        padding: 0px 0px 0px 10px;
+    }
+
+    .container-posts {
+        word-wrap: break-word;
+        table-layout: fixed;
+        padding: 0px 20px;
+
+    }
+
+    .col-posts {
+        height: 100%;
+    }
+
+
+    img {
+    max-width: 100%;
+    max-height: 100%;
+    }
+
+
+    .card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff(88, 49, 49);
+    background-clip: border-box;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0.50rem;
+    }
+
+    .card-header {
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    margin-top: 0;
+    }
+
+    .card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem;
+    }
+
+    .mt-4,
+    .my-4 {
+    margin-top: 1.5rem !important;
+    }
+
+    .lead {
+    font-size: 1.50rem;
+    font-weight: 300;
+    }
+
+    .container-fullpage {
+        min-height: 100%
+    }
+    
+    a {
+        color: inherit;
+        text-decoration: none; /* no underline */
+    }
+    a:hover {
+        color: inherit;
+        text-decoration: none
+    }
+    .jumbotron {
+        background-color: #f4511e; /*Orange */
+        opacity: 0.9;
+        color: #ffffff;
+        padding: 100px 25px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+    }
+
+    .jumbotron-fluid {
+        text-align: auto;
+    }
+
+    .jumbotron-text {
+        opacity: 0.9;
+    }
+
+    h1.jumbotron-header {
+        text-shadow: 1px 1px 2px #a82e08;
+    }
+
+    p.jumbotron-subheader {
+        color: #ffffff;
+    }
+
+    .bg-grey {
+        background-color: #f6f6f6;
+        padding: 60px 50px;
+    }
+    .container-default-padding {
+        padding: 60px 50px;
+    }
+    .logo {
+        padding: 20px 10px 0px 10px;
+        color: #f4511e;
+        text-shadow: 1px 1px 3px darkgrey;
+        font-size: 200px;
+        opacity: 0.9;
+    }
+    .logo-small {
+        font-size: 100px;
+        text-shadow: 1px 1px 3px darkgrey;
+        opacity: 0.9;
+    }
+
+        .logo-medium {
+        font-size: 150px;
+        text-shadow: 1px 1px 3px darkgrey;
+        opacity: 0.9;
+    }
+
+
+    .thumbnail {
+        padding: 0 0 15px 0;
+        border: none;
+        border-radius: 0;
+    }
+
+    .thumbnail img {
+        width: 100%;
+        height: 100%;
+        margin-bottom: 10px;
+    }
+    .carousel-control.right, .carousel-control.left {
+        background-image: none;
+        color: #f4511e;
+    }
+
+    .carousel-indicators li {
+        border-color: #f4511e;
+    }
+
+    .carousel-indicators li.active {
+        background-color: #f4511e;
+    }
+
+    .item h4 {
+        font-size: 19px;
+        line-height: 1.375em;
+        font-weight: 400;
+        font-style: italic;
+        margin: 70px 0;
+    }
+
+    .item span {
+        font-style: normal;
+    }
+
+    .container-testimonials-padding {
+        padding: 40px 40px 40px 40px;
+    }
+
+        .container-pager {
+        padding: 0px 20px;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none; /* no underline */
+    }
+
+    a:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .container-tags {
+        display: inline;
+        padding: 20px 60px;
+
+    }
+
+    .list-tags {
+        padding: 0px 0px 0px 10px;
+    }
+
+    .post-tags {
+        padding: 2px 5px 2px 5px;
+    }
+
+    .container-category-title {
+        text-align: center;
+    }
+    .container-empty-padding {
+        padding: 20px 40px;
+    }
+
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+    .comments-section-header:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+    .comments-section-header {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    .default-row-padding {
+        padding: 10px 10px 10px 10px;
+    }
+
+    .container-wrapper {
+        min-height: 100%;
+    }
+    h6.footer-copyright {
+        padding: 20px 0px 0px 0px;
+    }
+
+    .LT-profile-badge-styling {
+        text-align: center;
+        width: 100%;
+        padding: 20px 20px 20px 20px;
+    }
+
+    .container-fixed {
+        margin: 0 auto;
+        max-width: 1920px;
+    }
+   
+    .table-styling{
+        table-layout:fixed;
+        width:100%;
+        padding: 40px 20px;
+        word-wrap: break-word;
+    }
+    
+    img {
+        max-width: 100%;
+        max-height: 100%;
+    }
+
+
+</style>
+<script type="text/javascript" src="https://platform.linkedin.com/badges/js/profile.js" async defer></script>
+<div class="container-fixed">
+<nav class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('index') }}">jouharyan.com</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('index') }}">Home</a></li>
+                {% if request.path == "/index" %}
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#contactus">Contact</a></li>
+                {% else %}
+                <li><a href='/index#about'>About</a></li>
+                <li><a href='/index#services'>Services</a></li>
+                <li><a href='/index#contactus'>Contact</a></li>
+                {% endif %}
+                <li><a href="{{ url_for('blog') }}">Blog</a></li>
+                {% if current_user.is_anonymous %}
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+                {% else %}
+                <li><a href="{{ url_for('blog_editor') }}">Post</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                {% endif %}
+            </ul>
+            {% if 'search_feature' is active_feature %}
+            <form class="navbar-form navbar-left" method="get"
+                    action="{{ url_for('search') }}">
+                <div class="form-group">
+                    {{ g.search_form.q(size=20, class='form-control',
+                        placeholder=g.search_form.q.label.text) }}
+                </div>
+            </form>
+            {% endif %}
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+    </div>
+</nav>
+</div>
+
+
+{% endblock %}
+
+
+{% block content %}
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="container-fixed">
+        <div class="alert alert-info alert-dismissible fade in">
+            <br>
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        {{ message }}
+        </div>
+    </div>
+        {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+    {# application content needs to be provided in the app_content block #}
+    {% block app_content %}
+
+
+    {% endblock %}
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
+    <div class="container-fixed">
+    <footer>
+        <div class="container-fluid">
+            <hr>
+            <br>
+            <a href="https://github.com/masmontanas"><i class="fa fa fa-github"></i></a>
+            <a href="https://www.linkedin.com/in/alekjouharyan/"><i class="fa fa-linkedin"></i></a>
+            <br>
+            <h6 class="footer-copyright">Jouharyan Consulting LLC 2018</h6>
+            <hr>
+        </div>
+
+    </footer>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {{ moment.include_moment() }}
+    <script>
+
+        $(".alert").fadeTo(5000, 500).slideUp(500, function(){
+            $(".alert").slideUp(1000);
+        });
+
+        window.addEventListener("scroll", function() {
+            if (window.scrollY > 300) {
+                $('.navbar-nav').fadeOut(600);
+            }
+            else {
+                $('.navbar-nav').fadeIn(600);
+            }
+        },false);
+
+    </script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-130805374-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-130805374-1');
+    </script>
+
+{% endblock %}
