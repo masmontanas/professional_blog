@@ -1,7 +1,8 @@
 import os
 from dotenv import load_dotenv
 basedir = os.path.abspath(os.path.dirname(__file__))
-load_dotenv(os.path.join(basedir, '.env'))
+## testing loading env variables from travis-ci config
+# load_dotenv(os.path.join(basedir, '.env'))
 
 class Config(object):
     ENVIRONMENT = os.environ.get('FLASK_ENV')
