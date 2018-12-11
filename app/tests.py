@@ -4,7 +4,7 @@ import unittest
 
 from config import basedir
 from app import app, db, errors, helpers
-from app.models import User
+from app.models import User, Post
 
 class TestCase(unittest.TestCase):
     def setUp(self):
@@ -33,9 +33,11 @@ class TestCase(unittest.TestCase):
         u = User(username='tester', email='tester@test.com')
         db.session.add(u)
         db.session.commit()
+        print("Added user '{}' to session.".format(u.username))
         post = Post(body='testing', user_id=u.id, title='test title', description='test description')
         db.session.add(post)
         db.session.commit()
+        print("Added post '{}' to session.".format(post.title))
         response = self.app.get('/index', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
