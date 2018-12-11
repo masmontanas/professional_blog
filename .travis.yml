@@ -7,4 +7,5 @@ script: python -m unittest discover -v
 
 deploy:
   provider: azure_web_apps
+  on: master
   verbose: true
