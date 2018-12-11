@@ -43,6 +43,9 @@ class TestCase(unittest.TestCase):
         print("Testing 200-ok response on /index")
         response = self.app.get('/index', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
+        print("Testing redirect from '/' to '/index'")
+        response = self.app.get('/', follow_redirects=True)
+        self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':
     try:
