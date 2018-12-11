@@ -38,6 +38,7 @@ class TestCase(unittest.TestCase):
         db.session.add(post)
         db.session.commit()
         print("Added post '{}' to session.".format(post.title))
+        print("Testing 200-ok response on /index")
         response = self.app.get('/index', follow_redirects=True)
         self.assertEqual(response.status_code, 200)
 
