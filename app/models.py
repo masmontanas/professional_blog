@@ -2,7 +2,6 @@ from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from app import db, login, app
-import sys
 
 class SearchableMixin(object):
     @classmethod
@@ -82,7 +81,7 @@ class Post(SearchableMixin,db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     post_id = db.Column(db.Integer, db.ForeignKey('post.id'))
     comments = db.relationship('Comment', backref='review', lazy='dynamic')
-    tags = db.relationship('Tag',secondary=blog_tag, back_populates="posts")
+    tags = db.relationship('Tag', secondary=blog_tag, back_populates="posts")
     title = db.Column(db.String(120))
     description = db.Column(db.Text(1000))
 
@@ -108,7 +107,7 @@ class Tag(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name=db.Column(db.String(64), unique=True, nullable=False)
-    posts = db.relationship('Post', secondary = blog_tag, back_populates = "tags")
+    posts = db.relationship('Post', secondary=blog_tag, back_populates="tags")
     count = db.Column(db.Integer)
 
 
@@ -121,7 +120,6 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-## search
 def add_to_index(index, model):
     if not app.elasticsearch:
         return
@@ -129,7 +127,7 @@ def add_to_index(index, model):
     for field in model.__searchable__:
         payload[field] = getattr(model, field)
     app.elasticsearch.index(index=index, doc_type=index, id=model.id,
-                                    body=payload)
+                            body=payload)
 
 def remove_from_index(index, model):
     if not app.elasticsearch:
