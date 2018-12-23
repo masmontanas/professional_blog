@@ -1,7 +1,7 @@
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from app import db, login, admin, MyAdminIndexView, MyModelView, app
+from app import db, login, app
 import sys
 
 class SearchableMixin(object):
@@ -120,11 +120,6 @@ class Tag(db.Model):
 def load_user(id):
     return User.query.get(int(id))
 
-
-admin.add_view(MyModelView(User, db.session))
-admin.add_view(MyModelView(Post, db.session))
-admin.add_view(MyModelView(Tag, db.session))
-admin.add_view(MyModelView(Comment, db.session))
 
 ## search
 def add_to_index(index, model):

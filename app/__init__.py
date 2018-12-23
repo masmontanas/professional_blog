@@ -8,8 +8,6 @@ import logging
 from logging.handlers import SMTPHandler, RotatingFileHandler 
 from flask_moment import Moment
 from flask_mail import Mail
-from flask_admin import Admin, AdminIndexView
-from flask_admin.contrib.sqla import ModelView
 from flask_minify import minify
 from mailchimp3 import MailChimp
 from elasticsearch import Elasticsearch
@@ -17,24 +15,8 @@ from elasticapm.contrib.flask import ElasticAPM
 import elasticapm
 from flask_caching import Cache
 import os
-
 from flask_featureflags import FeatureFlag
 import flask_featureflags as feature
-
-
-class MyAdminIndexView(AdminIndexView):
-    def is_accessible(self):
-        return current_user.is_authenticated
-
-    def inaccessible_callback(self, name, **kwargs):
-        return redirect(url_for('login'))
-
-class MyModelView(ModelView):
-    def is_accessible(self):
-        return current_user.is_authenticated
-
-    def inaccessible_callback(self, name, **kwargs):
-        return redirect(url_for('login'))
 
 
 app = Flask(__name__)
@@ -48,7 +30,6 @@ login = LoginManager(app)
 login.login_view = 'login'
 moment = Moment(app)
 mail = Mail(app)
-admin = Admin(app, index_view=MyAdminIndexView())
 minify = minify(app=app)
 client = MailChimp(mc_api=app.config['MAILCHIMP_API_KEY'], mc_user=app.config['MAILCHIMP_USER_NAME'])
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})

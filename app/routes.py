@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, g
 from flask_login import logout_user, login_user, current_user, login_required
 from werkzeug.urls import url_parse
-from app import app, db, client, admin, apm, elasticapm
+from app import app, db, client, apm, elasticapm
 from app.forms import LoginForm, EmailSubscribeForm, ContactForm, CommentForm, SearchForm
 from app.models import User, Post, Comment, Tag, blog_tag
 from app.helpers import send_email, subscribe_user, subscribe_commentor
