@@ -49,16 +49,11 @@ def home():
 def index():
     latest_post = Post.query.order_by(Post.timestamp.desc()).first()
     contactform = ContactForm()
-    #emailsubscribeform = EmailSubscribeForm()
     if contactform.validate_on_submit():
         text_body = "{} said {}".format(contactform.contactemail.data, contactform.comment.data)
         send_email('New Contact!', contactform.contactemail.data, app.config['ADMINS'], text_body, text_body)
         flash('Thanks for reaching out!')
-        #subscribe_commentor(contactform.contactemail.data, client)
         return redirect(url_for('index'))
-    # if emailsubscribeform.validate_on_submit():
-    #     #subscribe_user(emailsubscribeform.email.data, client)
-    #     return redirect(url_for('index'))
     return render_template('index.html', title='Home', contactform=contactform, latest_post=latest_post)
 
 
@@ -99,7 +94,6 @@ def display(id):
         db.session.add(comment)
         db.session.commit()
         flash('Comment updated!')
-        #subscribe_commentor(commentform.email.data, client)
         return redirect('/posts/{}'.format(id))
     return render_template('posts.html', data=data, commentform=commentform, comment_count = int(comment_count), comments=comments, tags=tags, all_tags=all_tags)
 
