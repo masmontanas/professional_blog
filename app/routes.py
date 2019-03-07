@@ -2,10 +2,10 @@ from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, g
 from flask_login import logout_user, login_user, current_user, login_required
 from werkzeug.urls import url_parse
-from app import app, db, client, apm, elasticapm
-from app.forms import LoginForm, EmailSubscribeForm, ContactForm, CommentForm, SearchForm
+from app import app, db, apm, elasticapm
+from app.forms import LoginForm, ContactForm, CommentForm, SearchForm
 from app.models import User, Post, Comment, Tag, blog_tag
-from app.helpers import send_email, subscribe_user, subscribe_commentor
+from app.helpers import send_email
 from app import cache
 import flask_featureflags as feature
 
@@ -49,17 +49,12 @@ def home():
 def index():
     latest_post = Post.query.order_by(Post.timestamp.desc()).first()
     contactform = ContactForm()
-    emailsubscribeform = EmailSubscribeForm()
     if contactform.validate_on_submit():
         text_body = "{} said {}".format(contactform.contactemail.data, contactform.comment.data)
         send_email('New Contact!', contactform.contactemail.data, app.config['ADMINS'], text_body, text_body)
         flash('Thanks for reaching out!')
-        subscribe_commentor(contactform.contactemail.data, client)
         return redirect(url_for('index'))
-    if emailsubscribeform.validate_on_submit():
-        subscribe_user(emailsubscribeform.email.data, client)
-        return redirect(url_for('index'))
-    return render_template('index.html', title='Home', emailsubscribeform=emailsubscribeform, contactform=contactform, latest_post=latest_post)
+    return render_template('index.html', title='Home', contactform=contactform, latest_post=latest_post)
 
 
 
@@ -91,7 +86,6 @@ def display(id):
         comment_count = 0
         for c in comments:
             comment_count += 1
-        print("comment count is: {}".format(comment_count))
     except:
         pass
     commentform = CommentForm()
@@ -100,7 +94,6 @@ def display(id):
         db.session.add(comment)
         db.session.commit()
         flash('Comment updated!')
-        subscribe_commentor(commentform.email.data, client)
         return redirect('/posts/{}'.format(id))
     return render_template('posts.html', data=data, commentform=commentform, comment_count = int(comment_count), comments=comments, tags=tags, all_tags=all_tags)
 

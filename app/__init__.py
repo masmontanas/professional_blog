@@ -9,7 +9,6 @@ from logging.handlers import SMTPHandler, RotatingFileHandler
 from flask_moment import Moment
 from flask_mail import Mail
 from flask_minify import minify
-from mailchimp3 import MailChimp
 from elasticsearch import Elasticsearch
 from elasticapm.contrib.flask import ElasticAPM
 import elasticapm
@@ -31,7 +30,6 @@ login.login_view = 'login'
 moment = Moment(app)
 mail = Mail(app)
 minify = minify(app=app)
-client = MailChimp(mc_api=app.config['MAILCHIMP_API_KEY'], mc_user=app.config['MAILCHIMP_USER_NAME'])
 cache = Cache(app, config={'CACHE_TYPE': 'simple'})
 
 

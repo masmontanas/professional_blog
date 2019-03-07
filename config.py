@@ -17,10 +17,6 @@ class Config(object):
     ADMINS = ['sre_team_email@jouharyanconsulting.opsgenie.net']
     POSTS_PER_PAGE = os.environ.get('POSTS_PER_PAGE') or 5
     COMMENTS_PER_PAGE = os.environ.get('COMMENTS_PER_PAGE') or 5
-    MAILCHIMP_API_KEY = os.environ.get('MAILCHIMP_API_KEY')
-    MAILCHIMP_USER_NAME = os.environ.get('MAILCHIMP_USER_NAME')
-    MAILCHIMP_LIST_ID = os.environ.get('MAILCHIMP_LIST_ID')
-    MAILCHIMP_COMMENTOR_LIST_ID = os.environ.get('MAILCHIMP_COMMENTOR_LIST_ID')
     RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
     RECAPTCHA_PRIVATE_KEY = os.environ.get('RECAPTCHA_PRIVATE_KEY')
     ELASTICSEARCH_URL = os.environ.get('ELASTICSEARCH_URL')
