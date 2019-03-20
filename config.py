@@ -14,7 +14,7 @@ class Config(object):
     MAIL_USE_TLS = os.environ.get('MAIL_USE_TLS') or 1
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-    ADMINS = ['sre_team_email@jouharyanconsulting.opsgenie.net']
+    ADMINS = ['info@jouharyan.com']
     POSTS_PER_PAGE = os.environ.get('POSTS_PER_PAGE') or 5
     COMMENTS_PER_PAGE = os.environ.get('COMMENTS_PER_PAGE') or 5
     RECAPTCHA_PUBLIC_KEY = os.environ.get('RECAPTCHA_PUBLIC_KEY')
